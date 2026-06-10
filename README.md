@@ -1,16 +1,16 @@
-﻿# Lab SonuÃ§larÄ± AkÄ±llÄ± Asistan (Lab Results Smart Assistant)
+# Lab Sonuçları Akıllı Asistan (Lab Results Smart Assistant)
 
-Bu proje, bir hastanede laboratuvar cihazlarÄ±ndan gelen test sonuÃ§larÄ±nÄ± iÅŸleyen, doÄŸrulayan, hekimlerin gÃ¶rÃ¼ntÃ¼lemesine sunan ve yapay zeka destekli (Ollama) klinik yorum ve Ã¶n analiz saÄŸlayan modern bir web uygulamasÄ±dÄ±r.
+Bu proje, bir hastanede laboratuvar cihazlarından gelen test sonuçlarını işleyen, doğrulayan, hekimlerin görüntülemesine sunan ve yapay zeka destekli (Ollama) klinik yorum ve ön analiz sağlayan modern bir web uygulamasıdır.
 
 ---
 
-## Mimari YapÄ± ve AkÄ±ÅŸ DiyagramÄ±
+## Mimari Yapı ve Akış Diyagramı
 
-Sistemin bileÅŸenleri arasÄ±ndaki veri akÄ±ÅŸÄ±nÄ± gÃ¶steren mimari ÅŸema aÅŸaÄŸÄ±dadÄ±r:
+Sistemin bileşenleri arasındaki veri akışını gösteren mimari şema aşağıdadır:
 
 ```mermaid
 graph TD
-    subgraph MOCK_DEVICE ["Cihaz SimÃ¼lasyonu"]
+    subgraph MOCK_DEVICE ["Cihaz Simülasyonu"]
         MD[mock-lab-service:8081]
     end
 
@@ -53,109 +53,109 @@ graph TD
 
 ---
 
-## HÄ±zlÄ± BaÅŸlangÄ±Ã§ (Docker Compose ile Kurulum)
+## Hızlı Başlangıç (Docker Compose ile Kurulum)
 
 ### Gereksinimler
-- BilgisayarÄ±nÄ±zda **Docker** ve **Docker Compose** kurulu olmalÄ±dÄ±r.
-- Yapay zeka yorumlarÄ± iÃ§in lokalde **Ollama** yÃ¼klÃ¼ olmalÄ± ve `.env` iÃ§indeki `OLLAMA_MODEL` deÄŸerine karÅŸÄ±lÄ±k gelen model indirilmiÅŸ olmalÄ±dÄ±r. VarsayÄ±lan tercih `qwen2.5:14b` olarak ayarlanmÄ±ÅŸtÄ±r.
+- Bilgisayarınızda **Docker** ve **Docker Compose** kurulu olmalıdır.
+- Yapay zeka yorumları için lokalde **Ollama** yüklü olmalı ve `.env` içindeki `OLLAMA_MODEL` değerine karşılık gelen model indirilmiş olmalıdır. Varsayılan tercih `qwen2.5:14b` olarak ayarlanmıştır.
 
-### AdÄ±m AdÄ±m Kurulum
+### Adım Adım Kurulum
 
-1. **Repoyu KlonlayÄ±n veya Proje Dizinine Gidin:**
+1. **Repoyu Klonlayın veya Proje Dizinine Gidin:**
    ```bash
    cd lab-assistant
    ```
 
-2. **Ã‡evre DeÄŸiÅŸkenlerini AyarlayÄ±n:**
-   `.env.example` dosyasÄ±nÄ± `.env` olarak kopyalayÄ±n:
+2. **Çevre Değişkenlerini Ayarlayın:**
+   `.env.example` dosyasını `.env` olarak kopyalayın:
    ```bash
    cp .env.example .env
    ```
-   *(Windows iÃ§in `copy .env.example .env`)*
+   *(Windows için `copy .env.example .env`)*
 
-3. **Ollama Modelini HazÄ±rlayÄ±n:**
-   BilgisayarÄ±nÄ±zda Ollama'nÄ±n Ã§alÄ±ÅŸtÄ±ÄŸÄ±ndan ve `OLLAMA_MODEL` deÄŸerindeki modelin kurulu olduÄŸundan emin olun:
+3. **Ollama Modelini Hazırlayın:**
+   Bilgisayarınızda Ollama'nın çalıştığından ve `OLLAMA_MODEL` değerindeki modelin kurulu olduğundan emin olun:
    ```bash
    ollama pull qwen2.5:14b
    ```
-   EÄŸer bilgisayarÄ±nÄ±zdaki model adÄ± farklÄ±ysa `.env` iÃ§inde Ã¶rneÄŸin `OLLAMA_MODEL=qwen:14b` olarak deÄŸiÅŸtirebilirsiniz.
+   Eğer bilgisayarınızdaki model adı farklıysa `.env` içinde örneğin `OLLAMA_MODEL=qwen:14b` olarak değiştirebilirsiniz.
 
-4. **Sistemi BaÅŸlatÄ±n:**
-   Docker Compose ile tÃ¼m mikroservisleri ve veritabanÄ±nÄ± ayaÄŸa kaldÄ±rÄ±n:
+4. **Sistemi Başlatın:**
+   Docker Compose ile tüm mikroservisleri ve veritabanını ayağa kaldırın:
    ```bash
    docker compose up --build
    ```
 
-5. **Uygulamaya EriÅŸin:**
-   - **Frontend (React Web ArayÃ¼zÃ¼):** `http://localhost:3000`
+5. **Uygulamaya Erişin:**
+   - **Frontend (React Web Arayüzü):** `http://localhost:3000`
    - **Spring Boot Backend (REST API):** `http://localhost:8080`
    - **Mock Lab Cihaz Servisi:** `http://localhost:8081`
-   - **API DÃ¶kÃ¼mantasyonu (Swagger UI):** `http://localhost:8080/swagger-ui/index.html`
+   - **API Dökümantasyonu (Swagger UI):** `http://localhost:8080/swagger-ui/index.html`
 
 ---
 
-## VarsayÄ±lan Test KullanÄ±cÄ±larÄ±
+## Varsayılan Test Kullanıcıları
 
-VeritabanÄ± otomatik olarak aÅŸaÄŸÄ±daki kullanÄ±cÄ±lar ve BCrypt ÅŸifreleriyle tohumlanÄ±r (seeding):
+Veritabanı otomatik olarak aşağıdaki kullanıcılar ve BCrypt şifreleriyle tohumlanır (seeding):
 
-| Rol | E-posta (Login) | Åifre | AÃ§Ä±klama |
+| Rol | E-posta (Login) | Şifre | Açıklama |
 |---|---|---|---|
-| **Hekim (DOCTOR)** | `dr.aydin@hastane.com` | `Doctor123!` | SonuÃ§ listesi ve detaylarÄ±nÄ± gÃ¶rÃ¼r, AI analizi ister. |
-| **Hekim (DOCTOR)** | `dr.kaya@hastane.com` | `Doctor123!` | SonuÃ§ listesi ve detaylarÄ±nÄ± gÃ¶rÃ¼r, AI analizi ister. |
-| **YÃ¶netici (ADMIN)** | `admin@hastane.com` | `Admin123!` | TÃ¼m hekim yetkilerine ek olarak Audit Log sekmesine eriÅŸebilir. |
+| **Hekim (DOCTOR)** | `dr.aydin@hastane.com` | `Doctor123!` | Sonuç listesi ve detaylarını görür, AI analizi ister. |
+| **Hekim (DOCTOR)** | `dr.kaya@hastane.com` | `Doctor123!` | Sonuç listesi ve detaylarını görür, AI analizi ister. |
+| **Yönetici (ADMIN)** | `admin@hastane.com` | `Admin123!` | Tüm hekim yetkilerine ek olarak Audit Log sekmesine erişebilir. |
 
 ---
 
-## Teknik Kararlar ve Tercih GerekÃ§eleri
+## Teknik Kararlar ve Tercih Gerekçeleri
 
-### 1. Neden Åifre AktarÄ±mÄ±nda RSA Åifrelemesi KullandÄ±k?
-Ã–dev yÃ¶nergesindeki *"encryption ile login olacaÄŸÄ± frontend"* maddesi uyarÄ±nca, sadece standart SSL/TLS (HTTPS) gÃ¼venliÄŸi ile yetinilmeyip uygulama katmanÄ±nda asimetrik ÅŸifreleme uygulanmÄ±ÅŸtÄ±r.
-- **NasÄ±l Ã‡alÄ±ÅŸÄ±r:** Backend her aÃ§Ä±lÄ±ÅŸta 2048-bit RSA anahtar Ã§ifti Ã¼retir. Ä°stemci giriÅŸ ekranÄ±nda backend'den Public Key PEM string'ini (`GET /api/auth/public-key`) Ã§eker. Åifreyi native **Web Crypto API** ile RSA-OAEP (SHA-256) algoritmalarÄ± kullanarak tarayÄ±cÄ±da ÅŸifreler ve Base64 string olarak iletir. Backend ise Private Key ile bu ÅŸifreyi Ã§Ã¶zÃ¼p BCrypt eÅŸleÅŸtirmesini doÄŸrular.
-- **KazancÄ±:** GeliÅŸtirme veya yerel test ortamÄ±nda HTTP Ã¼zerinden baÄŸlantÄ± kurulsa dahi hekim ÅŸifreleri aÄŸda asla aÃ§Ä±k metin (plain text) olarak dolaÅŸmaz.
+### 1. Neden Şifre Aktarımında RSA Şifrelemesi Kullandık?
+Ödev yönergesindeki *"encryption ile login olacağı frontend"* maddesi uyarınca, sadece standart SSL/TLS (HTTPS) güvenliği ile yetinilmeyip uygulama katmanında asimetrik şifreleme uygulanmıştır.
+- **Nasıl Çalışır:** Backend her açılışta 2048-bit RSA anahtar çifti üretir. İstemci giriş ekranında backend'den Public Key PEM string'ini (`GET /api/auth/public-key`) çeker. Şifreyi native **Web Crypto API** ile RSA-OAEP (SHA-256) algoritmaları kullanarak tarayıcıda şifreler ve Base64 string olarak iletir. Backend ise Private Key ile bu şifreyi çözüp BCrypt eşleştirmesini doğrular.
+- **Kazancı:** Geliştirme veya yerel test ortamında HTTP üzerinden bağlantı kurulsa dahi hekim şifreleri ağda asla açık metin (plain text) olarak dolaşmaz.
 
-### 2. Neden Polling MekanizmasÄ± Tercih Edildi?
-Laboratuvar cihazlarÄ± genellikle batch mantÄ±ÄŸÄ±yla Ã§alÄ±ÅŸÄ±r ve saniyede yÃ¼zlerce anlÄ±k veri basmak yerine test tamamlandÄ±kÃ§a (Ã¶rneÄŸin 30 saniyede bir) kuyruÄŸa veri yazar.
-- **Karar:** WebSocket/Server-Sent Events (SSE) gibi sÃ¼rekli aÃ§Ä±k tutulan TCP baÄŸlantÄ±larÄ± klinik terminallerde gereksiz kaynak tÃ¼ketimine yol aÃ§abilir. 30 saniyelik veritabanÄ± polling mekanizmasÄ±, hem aÄŸ yÃ¼kÃ¼nÃ¼ minimumda tutmakta hem de veri tutarlÄ±lÄ±ÄŸÄ±nÄ± garantilemektedir.
+### 2. Neden Polling Mekanizması Tercih Edildi?
+Laboratuvar cihazları genellikle batch mantığıyla çalışır ve saniyede yüzlerce anlık veri basmak yerine test tamamlandıkça (örneğin 30 saniyede bir) kuyruğa veri yazar.
+- **Karar:** WebSocket/Server-Sent Events (SSE) gibi sürekli açık tutulan TCP bağlantıları klinik terminallerde gereksiz kaynak tüketimine yol açabilir. 30 saniyelik veritabanı polling mekanizması, hem ağ yükünü minimumda tutmakta hem de veri tutarlılığını garantilemektedir.
 
-### 3. Neden LLM Proxy KatmanÄ±nÄ± Backend'de KurguladÄ±k?
-Yapay zeka (Ollama) Ã§aÄŸrÄ±larÄ± doÄŸrudan frontend Ã¼zerinden de tetiklenebilirdi. Ancak backend entegrasyonu ÅŸu avantajlarÄ± saÄŸlamaktadÄ±r:
-- **GÃ¼venlik:** Yapay zekaya giden promptlar backend tarafÄ±nda kontrol edilir. Hekim adÄ±, ÅŸifre veya hastanÄ±n kiÅŸisel verileri (KVKK/GDPR uyumluluÄŸu iÃ§in) prompta eklenmez; sadece anonim hasta referansÄ± (`patientRef`), yaÅŸ ve cinsiyet gÃ¶nderilir.
-- **Loglama:** Her AI sorgusu backend denetim gÃ¼nlÃ¼ÄŸÃ¼ne (`AuditLog`) correlation request ID ile kaydedilir.
+### 3. Neden LLM Proxy Katmanını Backend'de Kurguladık?
+Yapay zeka (Ollama) çağrıları doğrudan frontend üzerinden de tetiklenebilirdi. Ancak backend entegrasyonu şu avantajları sağlamaktadır:
+- **Güvenlik:** Yapay zekaya giden promptlar backend tarafında kontrol edilir. Hekim adı, şifre veya hastanın kişisel verileri (KVKK/GDPR uyumluluğu için) prompta eklenmez; sadece anonim hasta referansı (`patientRef`), yaş ve cinsiyet gönderilir.
+- **Loglama:** Her AI sorgusu backend denetim günlüğüne (`AuditLog`) correlation request ID ile kaydedilir.
 
-### 4. Neden LLM YanÄ±tlarÄ±nÄ± VeritabanÄ±nda Kaydetmiyoruz?
-- **Karar:** AI yorumlarÄ± kalÄ±cÄ± veritabanÄ±nda saklanmaz, hekim her yorum istediÄŸinde canlÄ± olarak Ã¼retilir.
-- **GerekÃ§e:** Klinik bulgularda "taze yorum" (fresh interpretation) Ã¶nceliklidir. AI modelleri gÃ¼ncellendikÃ§e veya lokal hekim ayarlarÄ± deÄŸiÅŸtikÃ§e eski/hatalÄ± yorumlarÄ±n cache'den gelmesi Ã¶nlenmiÅŸ olur.
+### 4. Neden LLM Yanıtlarını Veritabanında Kaydetmiyoruz?
+- **Karar:** AI yorumları kalıcı veritabanında saklanmaz, hekim her yorum istediğinde canlı olarak üretilir.
+- **Gerekçe:** Klinik bulgularda "taze yorum" (fresh interpretation) önceliklidir. AI modelleri güncellendikçe veya lokal hekim ayarları değiştikçe eski/hatalı yorumların cache'den gelmesi önlenmiş olur.
 
 ### 5. Neden Zustand Tercih Edildi?
-- **Karar:** React Global State iÃ§in Zustand kullanÄ±lmÄ±ÅŸtÄ±r.
-- **GerekÃ§e:** Redux Toolkit kÃ¼Ã§Ã¼k ve orta Ã¶lÃ§ekli projeler iÃ§in aÅŸÄ±rÄ± karmaÅŸÄ±ktÄ±r (overkill). Zustand ise in-memory durum yÃ¶netimini minimal kodla saÄŸlar. GÃ¼venlik gerekÃ§esiyle tokenlar `localStorage` yerine Zustand in-memory state'inde tutulur; tarayÄ±cÄ± yenilendiÄŸinde oturumun dÃ¼ÅŸmesi bilinÃ§li bir kÄ±sÄ±ttÄ±r.
+- **Karar:** React Global State için Zustand kullanılmıştır.
+- **Gerekçe:** Redux Toolkit küçük ve orta ölçekli projeler için aşırı karmaşıktır (overkill). Zustand ise in-memory durum yönetimini minimal kodla sağlar. Güvenlik gerekçesiyle tokenlar `localStorage` yerine Zustand in-memory state'inde tutulur; tarayıcı yenilendiğinde oturumun düşmesi bilinçli bir kısıttır.
 
 ### 6. Neden MapStruct Tercih Edildi?
-- **GerekÃ§e:** Entity'leri elle DTO'lara dÃ¶nÃ¼ÅŸtÃ¼rmek hata yapmaya mÃ¼saittir. MapStruct derleme zamanÄ±nda tip-gÃ¼venli (type-safe) kod Ã¼reterek dÃ¶nÃ¼ÅŸÃ¼m performansÄ±nÄ± artÄ±rÄ±r ve kod kalitesini korur.
+- **Gerekçe:** Entity'leri elle DTO'lara dönüştürmek hata yapmaya müsaittir. MapStruct derleme zamanında tip-güvenli (type-safe) kod üreterek dönüşüm performansını artırır ve kod kalitesini korur.
 
 ---
 
-## YapÄ±lmayanlar, BilinÃ§li KÄ±sÄ±tlar ve Limitasyonlar
+## Yapılmayanlar, Bilinçli Kısıtlar ve Limitasyonlar
 
-| Konu | SÄ±nÄ±rlama / BilinÃ§li Karar | GerekÃ§e |
+| Konu | Sınırlama / Bilinçli Karar | Gerekçe |
 |---|---|---|
-| **HTTPS/TLS** | Proje HTTP Ã¼zerinden Ã§alÄ±ÅŸmaktadÄ±r. | GeliÅŸtirme ortamÄ± kurulumunu kolaylaÅŸtÄ±rmak iÃ§in. Ãœretim ortamÄ±nda (Production) Nginx Ã¶nÃ¼nde TLS sonlandÄ±rÄ±lmasÄ± planlanmaktadÄ±r. |
-| **LLM YanÄ±t Cache** | AI analizleri DB'ye kaydedilmemektedir. | Hekimin her zaman Ollama'nÄ±n gÃ¼ncel durumu ve model aÄŸÄ±rlÄ±klarÄ±na gÃ¶re taze klinik yorum almasÄ±nÄ± saÄŸlamak iÃ§in. |
-| **JWT LocalStorage** | Tokenlar tarayÄ±cÄ± diskine yazÄ±lmaz. | XSS saldÄ±rÄ±larÄ±na karÅŸÄ± korunmak iÃ§in in-memory tutulur. Sayfa refresh edildiÄŸinde kullanÄ±cÄ±nÄ±n tekrar giriÅŸ yapmasÄ± gerekir (Klinik terminal gÃ¼venliÄŸi). |
-| **WebSocket** | AnlÄ±k push yerine 30 saniyede bir poll edilir. | Klinik ortamda anlÄ±k veri akÄ±ÅŸÄ± hekim ekranlarÄ±nda dikkat daÄŸÄ±nÄ±klÄ±ÄŸÄ± yaratabilir; 30s periyodik yenileme yeterlidir. |
-| **E2E Test** | Cypress/Playwright entegrasyonu kurulmamÄ±ÅŸtÄ±r. | Test kapsama sÃ¼reci; Spring Boot Unit/Integration testleri ve Vitest + React Testing Library + JSDOM sanity testleriyle sÄ±nÄ±rlandÄ±rÄ±lmÄ±ÅŸtÄ±r. |
+| **HTTPS/TLS** | Proje HTTP üzerinden çalışmaktadır. | Geliştirme ortamı kurulumunu kolaylaştırmak için. Üretim ortamında (Production) Nginx önünde TLS sonlandırılması planlanmaktadır. |
+| **LLM Yanıt Cache** | AI analizleri DB'ye kaydedilmemektedir. | Hekimin her zaman Ollama'nın güncel durumu ve model ağırlıklarına göre taze klinik yorum almasını sağlamak için. |
+| **JWT LocalStorage** | Tokenlar tarayıcı diskine yazılmaz. | XSS saldırılarına karşı korunmak için in-memory tutulur. Sayfa refresh edildiğinde kullanıcının tekrar giriş yapması gerekir (Klinik terminal güvenliği). |
+| **WebSocket** | Anlık push yerine 30 saniyede bir poll edilir. | Klinik ortamda anlık veri akışı hekim ekranlarında dikkat dağınıklığı yaratabilir; 30s periyodik yenileme yeterlidir. |
+| **E2E Test** | Cypress/Playwright entegrasyonu kurulmamıştır. | Test kapsama süreci; Spring Boot Unit/Integration testleri ve Vitest + React Testing Library + JSDOM sanity testleriyle sınırlandırılmıştır. |
 
 ---
 
-## Testlerin KoÅŸulmasÄ± (CI/CD ve Docker Entegrasyonu)
+## Testlerin Koşulması (CI/CD ve Docker Entegrasyonu)
 
-### 1. Docker Build AÅŸamasÄ±nda Testler (Otomatik)
-Projede testlerin pipeline veya build sÄ±rasÄ±nda bypass edilmemesi saÄŸlanmÄ±ÅŸtÄ±r. `backend/Dockerfile` iÃ§erisinde `mvn clean package` komutu Ã§alÄ±ÅŸÄ±rken tÃ¼m JUnit testleri (Abnormality Evaluator, LLM Prompt, Polling, Controller ve Security Integration testleri) otomatik olarak koÅŸulur.
-*   **Test VeritabanÄ±:** Testlerin Postgres baÄŸÄ±mlÄ±lÄ±ÄŸÄ±nÄ± kaldÄ±rmak ve izole Ã§alÄ±ÅŸabilmesini saÄŸlamak iÃ§in test scope'unda **in-memory H2 Database** yapÄ±landÄ±rÄ±lmÄ±ÅŸ ve Flyway testler sÄ±rasÄ±nda devre dÄ±ÅŸÄ± bÄ±rakÄ±lmÄ±ÅŸtÄ±r.
+### 1. Docker Build Aşamasında Testler (Otomatik)
+Projede testlerin pipeline veya build sırasında bypass edilmemesi sağlanmıştır. `backend/Dockerfile` içerisinde `mvn clean package` komutu çalışırken tüm JUnit testleri (Abnormality Evaluator, LLM Prompt, Polling, Controller ve Security Integration testleri) otomatik olarak koşulur.
+*   **Test Veritabanı:** Testlerin Postgres bağımlılığını kaldırmak ve izole çalışabilmesini sağlamak için test scope'unda **in-memory H2 Database** yapılandırılmış ve Flyway testler sırasında devre dışı bırakılmıştır.
 
 ### 2. Frontend Testleri (Vitest)
-React istemcisinin temel render sanity durumlarÄ±nÄ± kontrol etmek iÃ§in Vitest, React Testing Library ve JSDOM test ortamÄ± kurulmuÅŸtur.
-*   **Ã‡alÄ±ÅŸtÄ±rma:** `frontend` dizininde `npm run test` komutuyla testleri koÅŸturabilirsiniz:
+React istemcisinin temel render sanity durumlarını kontrol etmek için Vitest, React Testing Library ve JSDOM test ortamı kurulmuştur.
+*   **Çalıştırma:** `frontend` dizininde `npm run test` komutuyla testleri koşturabilirsiniz:
     ```bash
     cd frontend
     npm run test
@@ -163,41 +163,41 @@ React istemcisinin temel render sanity durumlarÄ±nÄ± kontrol etmek iÃ§in V
 
 ---
 
-## YÃ¶netici Denetim Ä°zleri (Admin Audit Logs) Senaryo Ã–rneÄŸi
+## Yönetici Denetim İzleri (Admin Audit Logs) Senaryo Örneği
 
-Sistemde gerÃ§ekleÅŸtirilen tÃ¼m veri okuma, analiz isteme, giriÅŸ yapma ve veri yazma eylemleri `AuditLog` katmanÄ±nda denetlenir. Bir sistem yÃ¶neticisi (`admin@hastane.com`) bu loglarÄ± ÅŸu senaryoda inceler:
+Sistemde gerçekleştirilen tüm veri okuma, analiz isteme, giriş yapma ve veri yazma eylemleri `AuditLog` katmanında denetlenir. Bir sistem yöneticisi (`admin@hastane.com`) bu logları şu senaryoda inceler:
 
-1.  **GiriÅŸ:** YÃ¶netici admin hesabÄ±yla sisteme girer ve sol taraftaki **Audit LoglarÄ±** menÃ¼sÃ¼ne tÄ±klar.
-2.  **Sorgu ve Filtreleme:** Arama kutusuna `VIEW_RESULT` yazarak veya hekim bazlÄ± filtre uygulayarak `dr.aydin@hastane.com` kullanÄ±cÄ±sÄ±nÄ±n eylemlerine odaklanÄ±r.
-3.  **Ä°nceleme:**
-    *   Hekimin hangi hasta detaylarÄ±nÄ± incelediÄŸini (`action: VIEW_RESULT`, `patientRef: PT-00042`) doÄŸrular.
-    *   Hekimin ne zaman AI analizi talep ettiÄŸini (`action: GENERATE_ANALYSIS`) kontrol eder.
-    *   AÄŸ geÃ§idinden gelen `requestId` (talep izleme kimliÄŸi) sayesinde, hekimin yaptÄ±ÄŸÄ± her eylemin veritabanÄ±ndaki log izi ve sunucudaki HTTP istek zinciriyle birebir uyuÅŸtuÄŸunu denetler.
+1.  **Giriş:** Yönetici admin hesabıyla sisteme girer ve sol taraftaki **Audit Logları** menüsüne tıklar.
+2.  **Sorgu ve Filtreleme:** Arama kutusuna `VIEW_RESULT` yazarak veya hekim bazlı filtre uygulayarak `dr.aydin@hastane.com` kullanıcısının eylemlerine odaklanır.
+3.  **İnceleme:**
+    *   Hekimin hangi hasta detaylarını incelediğini (`action: VIEW_RESULT`, `patientRef: PT-00042`) doğrular.
+    *   Hekimin ne zaman AI analizi talep ettiğini (`action: GENERATE_ANALYSIS`) kontrol eder.
+    *   Ağ geçidinden gelen `requestId` (talep izleme kimliği) sayesinde, hekimin yaptığı her eylemin veritabanındaki log izi ve sunucudaki HTTP istek zinciriyle birebir uyuştuğunu denetler.
 
-Bu denetim mekanizmasÄ± klinik verilerin izinsiz eriÅŸimini (KVKK/GDPR uyumluluÄŸu) engellemek amacÄ±yla tasarlanmÄ±ÅŸtÄ±r.
+Bu denetim mekanizması klinik verilerin izinsiz erişimini (KVKK/GDPR uyumluluğu) engellemek amacıyla tasarlanmıştır.
 
 ---
 
-## Mock Lab CihazÄ± Senaryo Tetikleme YÃ¶nergesi
+## Mock Lab Cihazı Senaryo Tetikleme Yönergesi
 
-DeÄŸerlendirici hekimin farklÄ± senaryolarÄ± test edebilmesi iÃ§in `mock-lab-service` Ã¼zerinde Ã¶zel bir override endpoint'i bulunmaktadÄ±r. 
+Değerlendirici hekimin farklı senaryoları test edebilmesi için `mock-lab-service` üzerinde özel bir override endpoint'i bulunmaktadır. 
 
-Terminalden aÅŸaÄŸÄ±daki curl komutuyla sÄ±radaki test sonucunu tetikleyebilirsiniz:
+Terminalden aşağıdaki curl komutuyla sıradaki test sonucunu tetikleyebilirsiniz:
 
 ```bash
-# SÄ±radaki test sonucunu kritik olarak zorla:
+# Sıradaki test sonucunu kritik olarak zorla:
 curl -X POST http://localhost:8081/api/device/scenario/override \
      -H "Content-Type: application/json" \
      -d '{"scenario": "CRITICAL"}'
 ```
 
-**KullanÄ±labilir Senaryolar:** `NORMAL`, `ABNORMAL_LOW`, `ABNORMAL_HIGH`, `CRITICAL`, `MALFORMED`, `DEVICE_ERROR`
+**Kullanılabilir Senaryolar:** `NORMAL`, `ABNORMAL_LOW`, `ABNORMAL_HIGH`, `CRITICAL`, `MALFORMED`, `DEVICE_ERROR`
 
--   `MALFORMED` tetiklendiÄŸinde; backend bunu `INVALID` status ile DB'ye kaydeder ancak frontend hekim listesine basmaz. Loglarda validation hatasÄ± gÃ¶rÃ¼lebilir.
--   `DEVICE_ERROR` tetiklendiÄŸinde; mock cihaz 503 dÃ¶ner, backend polling servisi hata fÄ±rlatmadan gracefully log atar ve Ã§alÄ±ÅŸmaya devam eder.
+-   `MALFORMED` tetiklendiğinde; backend bunu `INVALID` status ile DB'ye kaydeder ancak frontend hekim listesine basmaz. Loglarda validation hatası görülebilir.
+-   `DEVICE_ERROR` tetiklendiğinde; mock cihaz 503 döner, backend polling servisi hata fırlatmadan gracefully log atar ve çalışmaya devam eder.
 
 ---
 
-## Teslim Belgeleri ve Ekran GÃ¶rÃ¼ntÃ¼leri
+## Teslim Belgeleri ve Ekran Görüntüleri
 
-UygulamanÄ±n kullanÄ±m yÃ¶nergeleri ve ekran gÃ¶rÃ¼ntÃ¼lerine [docs/USER_GUIDE.md](docs/USER_GUIDE.md) dosyasÄ± Ã¼zerinden ve ekran gÃ¶rÃ¼ntÃ¼lerine `docs/screenshots/` klasÃ¶rÃ¼nden eriÅŸebilirsiniz.
+Uygulamanın kullanım yönergeleri ve ekran görüntülerine [docs/USER_GUIDE.md](docs/USER_GUIDE.md) dosyası üzerinden ve ekran görüntülerine `docs/screenshots/` klasöründen erişebilirsiniz.
