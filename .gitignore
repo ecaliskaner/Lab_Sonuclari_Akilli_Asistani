@@ -1,0 +1,34 @@
+# ─── Environment & secrets ───
+.env
+
+# ─── Java / Maven ───
+backend/target/
+mock-lab-service/target/
+*.class
+*.jar
+*.war
+*.log
+*.iml
+.idea/
+*.swp
+*~
+
+# ─── Node.js ───
+node_modules/
+frontend/dist/
+mock-lab-service/node_modules/
+
+# ─── Logs ───
+.logs/
+
+# ─── Tooling ───
+.tools/
+
+# ─── OS files ───
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── IDE ───
+.vscode/
+*.code-workspace

@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --yeka-blue: #0066cc;
+  --yeka-blue-hover: #0055b3;
+  --yeka-blue-light: #0071e3;
+  --yeka-border: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: #e2e8f0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.yeka-page-bg {
+  background:
+    linear-gradient(180deg, rgba(0, 102, 204, 0.05), rgba(255, 255, 255, 0) 18rem),
+    linear-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+    #f8fafc;
+  background-size: auto, 46px 46px, 46px 46px, auto;
+}
+
+.yeka-page-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.yeka-page-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+@layer components {
+  .glass-panel {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.05);
+  }
+
+  .yeka-card {
+    @apply rounded-[28px] border border-yeka-border bg-white shadow-sm backdrop-blur-3xl;
+  }
+
+  .yeka-input {
+    @apply w-full rounded-2xl border border-yeka-border bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-800 outline-none transition focus:ring-1 focus:bg-white;
+  }
+
+  .yeka-input:focus {
+    border-color: rgba(0, 102, 204, 0.5);
+    --tw-ring-color: rgba(0, 102, 204, 0.2);
+  }
+
+  .yeka-button-primary {
+    @apply rounded-2xl bg-yeka-blue px-4 py-2.5 text-xs font-bold text-white shadow-yeka-glow transition hover:bg-yeka-blue-hover disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .yeka-button-ghost {
+    @apply rounded-2xl border border-yeka-border bg-slate-50 px-4 py-2.5 text-xs font-bold text-slate-700 transition hover:bg-slate-100 hover:text-slate-900;
+  }
+}
+
+/* Custom pulsing animation for critical badge */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.33);
+  }
+  80%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-dot {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.4);
+  }
+  100% {
+    transform: scale(0.8);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+.critical-glow {
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+  animation: pulse-dot 1.5s infinite;
+}

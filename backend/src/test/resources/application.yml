@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:lab_assistant;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+  flyway:
+    enabled: false
+
+lab:
+  polling:
+    interval-ms: 30000
+    base-url: http://localhost:8081
+  jwt:
+    secret: change_me_minimum_32_chars_long_secret_key_which_is_long_enough
+    expiration-ms: 900000
+    refresh-expiration-ms: 604800000
+
+ollama:
+  base-url: http://localhost:11434
+  model: qwen2.5:14b
