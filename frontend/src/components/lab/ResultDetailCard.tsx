@@ -11,6 +11,8 @@ interface ResultDetailCardProps {
 
 export const ResultDetailCard: React.FC<ResultDetailCardProps> = ({ result }) => {
   const [showRaw, setShowRaw] = useState(false);
+  const [expandModel, setExpandModel] = useState(false);
+  const [expandResultId, setExpandResultId] = useState(false);
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return 'Belirtilmemiş';
@@ -157,10 +159,32 @@ export const ResultDetailCard: React.FC<ResultDetailCardProps> = ({ result }) =>
             <Cpu className="h-4 w-4 text-yeka-blue" />
             <span>Cihaz Bilgisi</span>
           </h3>
-          <div className="space-y-1 text-sm font-medium">
-            <div className="flex justify-between"><span className="text-slate-400">Cihaz Modeli:</span> <span className="text-slate-800 truncate max-w-[150px]">{result.deviceModel}</span></div>
-            <div className="flex justify-between"><span className="text-slate-400">Cihaz ID'si:</span> <span className="text-slate-800">{result.deviceId}</span></div>
-            <div className="flex justify-between"><span className="text-slate-400">Sonuç Benzersiz No:</span> <span className="text-slate-800 text-xs font-mono">{result.resultId.substring(0, 8)}...</span></div>
+          <div className="space-y-1.5 text-sm font-medium">
+            <div className="flex justify-between items-start gap-2">
+              <span className="text-slate-400 shrink-0">Cihaz Modeli:</span>
+              <span
+                onClick={() => setExpandModel(!expandModel)}
+                title="Tam model adını göster/gizle"
+                className={`text-slate-800 cursor-pointer hover:text-yeka-blue transition text-right ${
+                  expandModel ? 'break-words font-semibold' : 'truncate max-w-[155px]'
+                }`}
+              >
+                {result.deviceModel}
+              </span>
+            </div>
+            <div className="flex justify-between items-center"><span className="text-slate-400">Cihaz ID'si:</span> <span className="text-slate-800">{result.deviceId}</span></div>
+            <div className="flex justify-between items-start gap-2">
+              <span className="text-slate-400 shrink-0">Sonuç Benzersiz No:</span>
+              <span
+                onClick={() => setExpandResultId(!expandResultId)}
+                title="Tam benzersiz numarayı göster/gizle"
+                className={`text-slate-800 text-xs font-mono cursor-pointer hover:text-yeka-blue transition text-right ${
+                  expandResultId ? 'break-all font-semibold' : 'truncate max-w-[120px]'
+                }`}
+              >
+                {expandResultId ? result.resultId : `${result.resultId.substring(0, 8)}...`}
+              </span>
+            </div>
           </div>
         </div>
       </div>
