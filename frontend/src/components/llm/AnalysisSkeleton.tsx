@@ -1,4 +1,4 @@
-export default function AnalysisSkeleton() {
+export function AnalysisSkeleton() {
   return (
     <div className="space-y-4 animate-pulse" aria-busy="true" aria-label="Analiz yükleniyor">
       {/* Header shimmer */}
@@ -29,3 +29,5 @@ export default function AnalysisSkeleton() {
     </div>
   );
 }
+
+export default AnalysisSkeleton;

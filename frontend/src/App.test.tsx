@@ -136,7 +136,7 @@ describe('AuthStore', () => {
 
   it('setAuth stores token and user', async () => {
     const { useAuthStore } = await import('./store/authStore');
-    const mockUser = { id: 1, email: 'dr@test.com', fullName: 'Dr. Test', role: 'DOCTOR' };
+    const mockUser = { id: 1, email: 'dr@test.com', fullName: 'Dr. Test', role: 'DOCTOR' as const };
 
     useAuthStore.getState().setAuth('access-123', 'refresh-456', mockUser);
 
@@ -148,7 +148,7 @@ describe('AuthStore', () => {
 
   it('clearAuth resets everything to null', async () => {
     const { useAuthStore } = await import('./store/authStore');
-    const mockUser = { id: 1, email: 'dr@test.com', fullName: 'Dr. Test', role: 'DOCTOR' };
+    const mockUser = { id: 1, email: 'dr@test.com', fullName: 'Dr. Test', role: 'DOCTOR' as const };
 
     useAuthStore.getState().setAuth('access-123', 'refresh-456', mockUser);
     useAuthStore.getState().clearAuth();
